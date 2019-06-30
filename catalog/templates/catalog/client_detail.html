@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Client: {{ client.first_name }} {{ client.last_name }}</h1>
+
+<p><strong>Doctor:</strong> <a href="{% url 'doctor-detail' client.doctor.pk %}">{{ client.doctor }}</a></p>
+<p><strong>Note:</strong> {{ client.summary }}</p>
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Events</h4>
+
+{% for event in client.event_set.all %}
+<hr>
+<p class="{% if event.status == 'o' %}text-success{% elif event.status == 'a' %}text-danger{% else %}text-warning{% endif %}">{{ event.get_status_display }}</p>
+{% if event.status != 'a' %}<p><strong>Due to be returned:</strong> {{event.date}}</p>{% endif %}
+<p><strong>Imprint:</strong> {{event.note}}</p>
+<p class="text-muted"><strong>Id:</strong> {{event.id}}</p>
+
+{% endfor %}
+</div>
+{% endblock %}
+

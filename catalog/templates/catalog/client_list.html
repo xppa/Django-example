@@ -1,0 +1,38 @@
+
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Client List</h1>
+
+{% if client_list %}
+  <ul>
+
+  {% for client in client_list %}
+    <li>
+      <a href="{{ client.get_absolute_url }}">
+      {{client}}
+      </a>
+        <br>
+        Имя: <a href="{{ client.get_absolute_url }}">{{ client.first_name }}</a>
+        Фамилия: <a href="{{ client.get_absolute_url }}">{{ client.last_name }}</a>
+        <br>
+        <p>Doctor: {{ client.doctor }} </p>
+        <p>Дата рождения: {{ client.date_of_bird }}</p>
+        <p>Город: {{ client.city }}</p>
+        <p>Телефон:{{ client.phone }} </p>
+        Описание: {{ client.summary }}
+        <br><br>
+      </a>
+    </li>
+  {% endfor %}
+
+ </ul>
+{% else %}
+  <p>There are no authors available.</p>
+{% endif %}
+
+
+
+{% endblock %}
